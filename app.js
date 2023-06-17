@@ -1,3 +1,4 @@
+require("dotenv").config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -6,8 +7,19 @@ const logger = require('morgan');
 const helmet = require("helmet");
 const compression = require('compression');
 const RateLimit = require("express-rate-limit");
+const mongoose = require("mongoose");
 
 const indexRouter = require('./routes/index');
+
+(async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("MongoDB connection established");
+  }
+  catch (error) {
+    console.error("Couldn't connect to MongoDB");
+  }
+})();
 
 const app = express();
 
