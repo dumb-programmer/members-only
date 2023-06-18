@@ -2,6 +2,12 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/style.css')
   body
-    block content
+    header
+      h1 Club House
+      .btns-container
+        a(href="/login") Login
+        a(href="/signup") Signup
+    main
+      block content

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    .form-container
+        form(action="" method="POST")
+            h2 #{title}
+            .form-control
+                label(for="first_name") First Name
+                input(id="first_name" name="first_name" type="text" maxlength="50" required)
+            .form-control
+                label(for="last_name") Last Name
+                input(id="last_name" name="last_name" type="text" maxlength="50" required)
+            .form-control
+                label(for="email") Email
+                input(id="email" name="email" type="email" required)
+            .form-control
+                label(for="password") Password
+                input(id="password" name="password" type="password" required)
+            .form-control
+                label(for="confirm_password") Confirm Password
+                input(id="confirm_password" name="confirm_password" type="password" required)
+            button.submit-btn(type="submit") Submit
