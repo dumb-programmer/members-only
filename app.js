@@ -8,6 +8,11 @@ const helmet = require("helmet");
 const compression = require("compression");
 const RateLimit = require("express-rate-limit");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcrypt");
+const User = require("./models/user");
 
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/authRouter");
@@ -40,6 +45,48 @@ const limiter = RateLimit({
 });
 app.use(limiter);
 app.use(compression());
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV === "production" && true }
+}));
+passport.use(new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      done(null, false, { message: "No such user exists" });
+      return;
+    }
+    bcrypt.compare(password, user.password, (error, res) => {
+      if (error) {
+        return done(error);
+      }
+      else if (res) {
+        return done(null, user);
+      }
+      return done(null, false);
+    });
+  }
+  catch (error) {
+    done(error);
+  }
+}));
+passport.serializeUser((user, done) => {
+  done(null, user._id.toString());
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  };
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/", authRouter);

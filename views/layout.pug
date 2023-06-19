@@ -6,8 +6,11 @@ html
   body
     header
       h1 Club House
-      .btns-container
-        a(href="/login") Login
-        a(href="/signup") Signup
+      if(user)
+        a(href="/logout") Logout
+      else
+        .btns-container
+          a(href="/login") Login
+          a(href="/signup") Signup
     main
       block content

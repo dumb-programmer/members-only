@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    .form-container
+        form(action="" method="POST")
+            h2 #{title}
+            .form-control
+                label(for="email") Email
+                input(id="email" name="email" type="email" required)
+            .form-control
+                label(for="password") Password
+                input(id="password" name="password" type="password" required)
+            button.submit-btn(type="submit") Submit
