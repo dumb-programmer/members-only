@@ -59,3 +59,10 @@ form {
   display: flex;
   gap: 1rem;
 }
+
+.redacted {
+  height: 15px;
+  width: 50px;
+  border-radius: 5px;
+  background-color: grey;
+}

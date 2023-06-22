@@ -17,6 +17,7 @@ const User = require("./models/user");
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/authRouter");
 const postRouter = require("./routes/postRouter");
+const clubRouter = require("./routes/clubRouter");
 
 (async () => {
   try {
@@ -92,6 +93,7 @@ app.use(passport.session());
 app.use("/", indexRouter);
 app.use("/", authRouter);
 app.use("/post", postRouter);
+app.use("/club", clubRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
