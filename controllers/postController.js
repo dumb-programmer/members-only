@@ -2,7 +2,7 @@ const Post = require("../models/post");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
 const getPosts = async (req, res) => {
-    const posts = await Post.find().populate("author");
+    const posts = await Post.find().sort({ createdAt: -1 }).populate("author");
     res.render("index", { posts, user: req.user, title: "Posts" });
 };
 

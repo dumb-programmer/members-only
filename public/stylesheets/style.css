@@ -25,7 +25,7 @@ header {
 
 main {
   flex: 2;
-  padding: 10px 20px;
+  padding: 20px;
 }
 
 .form-container {
@@ -65,4 +65,48 @@ form {
   width: 50px;
   border-radius: 5px;
   background-color: grey;
+}
+
+.posts {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.post {
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.btn {
+  font-weight: 700;
+  min-width: 80px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: background-color .2s;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background-color: black;
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: rgb(100, 100, 100);
+}
+
+.secondary-btn:hover {
+  background-color: rgb(245, 243, 243);
 }
