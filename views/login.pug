@@ -1,13 +1,18 @@
 extends layout
 
 block content
+    - const emailError = errors && getErrorMsg(filterErrorsByPath("email"));
+    - const passwordError = errors && getErrorMsg(filterErrorsByPath("password"));
+
     .form-container
         form(action="" method="POST")
             h2 #{title}
             .form-control
                 label(for="email") Email
-                input(id="email" name="email" type="email" required)
+                input(id="email" name="email" type="email" class=(emailError && "input__error") required)
+                span.error-message= emailError
             .form-control
                 label(for="password") Password
-                input(id="password" name="password" type="password" required)
-            button.submit-btn(type="submit") Submit
+                input(id="password" name="password" type="password" class=(passwordError && "input__error") required)
+                span.error-message= passwordError
+            button.btn.primary-btn(type="submit") Submit

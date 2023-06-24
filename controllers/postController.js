@@ -3,13 +3,13 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 
 const getPosts = async (req, res) => {
     const posts = await Post.find().sort({ createdAt: -1 }).populate("author");
-    res.render("index", { posts, user: req.user, title: "Posts" });
+    res.render("index", { posts, title: "Posts" });
 };
 
 const createPostForm = [
     isAuthenticated,
     (req, res) => {
-        res.render("postForm", { title: "Create Post" });
+        res.render("post_form", { title: "Create Post" });
     }
 ]
 

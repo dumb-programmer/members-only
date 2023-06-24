@@ -1,22 +1,33 @@
 extends layout
 
 block content
+    - const firstNameError = errors && getErrorMsg(filterErrorsByPath("first_name"));
+    - const lastNameError = errors && getErrorMsg(filterErrorsByPath("last_name"));
+    - const emailError = errors && getErrorMsg(filterErrorsByPath("email"));
+    - const passwordError = errors && getErrorMsg(filterErrorsByPath("password"));
+    - const confirmPasswordError = errors && getErrorMsg(filterErrorsByPath("confirm_password"));
+
     .form-container
         form(action="" method="POST")
             h2 #{title}
             .form-control
                 label(for="first_name") First Name
-                input(id="first_name" name="first_name" type="text" maxlength="50" required)
+                input(id="first_name" name="first_name" type="text" class=(firstNameError && "input__error") value=(userData && userData.firstName) maxlength="50" required)
+                span.error-message= firstNameError
             .form-control
                 label(for="last_name") Last Name
-                input(id="last_name" name="last_name" type="text" maxlength="50" required)
+                input(id="last_name" name="last_name" type="text" class=(lastNameError && "input__error") value=(userData && userData.lastName) maxlength="50" required)
+                span.error-message= lastNameError
             .form-control
                 label(for="email") Email
-                input(id="email" name="email" type="email" required)
+                input(id="email" name="email" type="email" class=(emailError && "input__error") value=(userData && userData.email) required)
+                span.error-message= emailError
             .form-control
                 label(for="password") Password
-                input(id="password" name="password" type="password" required)
+                input(id="password" name="password" type="password" class=(passwordError && "input__error") value=(userData && userData.password) required)
+                span.error-message= passwordError
             .form-control
                 label(for="confirm_password") Confirm Password
-                input(id="confirm_password" name="confirm_password" type="password" required)
+                input(id="confirm_password" name="confirm_password" class=(confirmPasswordError && "input__error") value=(userData && userData.confirmPassword) type="password" required)
+                span.error-message= confirmPasswordError
             button.submit-btn(type="submit") Submit

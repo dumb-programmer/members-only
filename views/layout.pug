@@ -5,10 +5,12 @@ html
     link(rel='stylesheet' href='/stylesheets/style.css')
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
+    - const filterErrorsByPath = (path) => errors && errors.filter(error => error.path === path);
+    - const getErrorMsg = (errors) => errors[0]?.msg || "";
     header
       a(href="/")
         h1 Club House
-      if(user)
+      if user
         a(href="/logout" class="btn primary-btn") Logout
       else
         .btns-container

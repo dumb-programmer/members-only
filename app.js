@@ -90,6 +90,11 @@ passport.deserializeUser(async (id, done) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+})
+
 app.use("/", indexRouter);
 app.use("/", authRouter);
 app.use("/post", postRouter);

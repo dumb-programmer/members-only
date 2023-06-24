@@ -2,10 +2,11 @@ extends layout
 
 block content
     form(action="" method="POST")
+        h2 #{title}
         .form-control
             label(for="title") Title:
             input(type="type" id="title" name="title")
         .form-control
             label(for="text") Text:
             textarea(id="text" name="text")
-        button(type="submit") Submit
+        button.btn.primary-btn(type="submit") Submit
