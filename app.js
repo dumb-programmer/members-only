@@ -57,8 +57,9 @@ passport.use(new LocalStrategy({ usernameField: "email" }, async (email, passwor
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      done(null, false, { message: "No such user exists" });
-      return;
+      return done(null, false, {
+        message: `No such user exists:${email}:${password}`,
+      });
     }
     bcrypt.compare(password, user.password, (error, res) => {
       if (error) {
@@ -67,7 +68,7 @@ passport.use(new LocalStrategy({ usernameField: "email" }, async (email, passwor
       else if (res) {
         return done(null, user);
       }
-      return done(null, false);
+      return done(null, false, { message: `Incorrect password:${email}:${password}` });
     });
   }
   catch (error) {
@@ -86,9 +87,9 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   };
 });
-
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use((req, res, next) => {
   res.locals.user = req.user;

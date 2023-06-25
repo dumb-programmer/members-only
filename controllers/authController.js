@@ -46,7 +46,21 @@ const createUser = [
 ]
 
 const loginGET = (req, res) => {
-    res.render("login", { title: "Login" });
+    let errors = [];
+    const data = {};
+    if (req.session.messages) {
+        const latestMessage = req.session.messages[req.session.messages.length - 1];
+        const [message, email, password] = latestMessage.split(":");
+        data.email = email;
+        data.password = password;
+        if (latestMessage.match(/user/)) {
+            errors.push({ path: "email", msg: message });
+        }
+        else if (latestMessage.match(/password/)) {
+            errors.push({ path: "password", msg: message });
+        }
+    }
+    res.render("login", { title: "Login", errors, data });
 };
 
 const validateCredentails = [
@@ -56,19 +70,17 @@ const validateCredentails = [
 
 const loginPOST = [
     ...validateCredentails,
-    (req, res) => {
+    (req, res, next) => {
         const result = validationResult(req);
+        const { email, password } = req.body;
         if (result.isEmpty()) {
-            passport.authenticate("local", {
-                successRedirect: "/",
-                failureRedirect: "/login",
-                failureMessage: true
-            });
+            next();
         }
         else {
-            res.render("login", { errors: result.array() });
+            res.render("login", { data: { email, password }, errors: result.array() });
         }
-    }
+    },
+    passport.authenticate("local", { successRedirect: "/", failureRedirect: "/login", failureMessage: true })
 ]
 
 const logout = (req, res, next) => {
