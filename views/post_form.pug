@@ -1,12 +1,16 @@
 extends layout
 
 block content
+    - const titleError = errors && getErrorMsg(filterErrorsByPath("title"));
+    - const textError = errors && getErrorMsg(filterErrorsByPath("text"));
     form(action="" method="POST")
         h2 #{title}
         .form-control
             label(for="title") Title:
-            input(type="type" id="title" name="title")
+            input(type="type" id="title" name="title" class=(titleError && "input__error") value=(data && data.title))
+            span.error-message= titleError
         .form-control
             label(for="text") Text:
-            textarea(id="text" name="text")
+            textarea(id="text" class=(textError && "input__error") name="text")= data && data.text
+            span.error-message= textError
         button.btn.primary-btn(type="submit") Submit
