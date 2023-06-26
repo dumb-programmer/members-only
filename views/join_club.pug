@@ -1,8 +1,11 @@
 extends layout
 
 block content
+    - const passwordError = errors && getErrorMsg(filterErrorsByPath("password"));
     form(action="" method="POST")
         h2 #{title}
-        label(for="password") Password:
-        input(type="password" id="password" name="password")
-        button(type="submit") Submit
+        .form-control
+            label(for="password") Password:
+            input(type="password" id="password" name="password" class=(passwordError && "input__error") value=(password || ""))
+            .error-message= passwordError
+        button(type="submit" class="btn primary-btn") Submit

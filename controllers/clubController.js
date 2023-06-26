@@ -14,8 +14,11 @@ const joinClubPOST = [
         const { password } = req.body;
         if (password == process.env.CLUB_PASSWORD) {
             await User.findByIdAndUpdate(req.user._id, { isMember: true });
+            res.redirect("/");
         }
-        res.redirect("/");
+        else {
+            res.render("join_club", { title: "Join Club", errors: [{ path: "password", msg: "Incorrect password" }], password });
+        }
     }
 ];
 

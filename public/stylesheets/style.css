@@ -56,7 +56,7 @@ form {
   display: block;
 }
 
-.form-control>input {
+.form-control>input, .form-control>textarea {
   appearance: none;
   border: 1px solid grey;
   border-radius: 3px;
@@ -90,13 +90,13 @@ form {
 }
 
 .posts {
-  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
 .post {
+  max-width: 600px;
   position: relative;
   background-color: #fff;
   padding: 20px;
