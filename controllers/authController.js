@@ -11,7 +11,7 @@ const validateUser = [
     body("first_name").notEmpty().withMessage("First name is required").isLength({ max: 50 }).withMessage("Fist name can't be greater than 50 characters"),
     body("last_name").notEmpty().withMessage("Last name is required").isLength({ max: 50 }),
     body("email").notEmpty().withMessage("Email is required").isEmail().custom(async val => {
-        const user = await User.find({ email: val });
+        const user = await User.findOne({ email: val });
         if (user) {
             return Promise.reject(false);
         }
@@ -20,7 +20,7 @@ const validateUser = [
     body("password").notEmpty().withMessage("Password is required").isLength({ min: 8 }).withMessage("Password must be atleast 8 characters long"),
     body("confirm_password").notEmpty().withMessage("Confirm password is required").custom((value, { req }) => {
         return value === req.body.password;
-    }).withMessage("Password don't match"),
+    }).withMessage("Passwords don't match"),
 ]
 
 const createUser = [

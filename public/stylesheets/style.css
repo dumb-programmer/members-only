@@ -136,3 +136,9 @@ a {
   font-size: 0.7rem;
   color: red;
 }
+
+.post-meta {
+  color: rgb(77, 75, 75);
+  font-size: 0.85rem;
+  padding: 5px 0;
+}
