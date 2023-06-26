@@ -10,14 +10,15 @@ block content
     .form-container
         form(action="" method="POST")
             h2 #{title}
-            .form-control
-                label(for="first_name") First Name
-                input(id="first_name" name="first_name" type="text" class=(firstNameError && "input__error") value=(userData && userData.firstName) maxlength="50" required)
-                span.error-message= firstNameError
-            .form-control
-                label(for="last_name") Last Name
-                input(id="last_name" name="last_name" type="text" class=(lastNameError && "input__error") value=(userData && userData.lastName) maxlength="50" required)
-                span.error-message= lastNameError
+            div(style="display:flex;gap:0.5rem;flex-wrap:wrap;")
+                .form-control
+                    label(for="first_name") First Name
+                    input(id="first_name" name="first_name" type="text" class=(firstNameError && "input__error") value=(userData && userData.firstName) maxlength="50" required)
+                    span.error-message= firstNameError
+                .form-control
+                    label(for="last_name") Last Name
+                    input(id="last_name" name="last_name" type="text" class=(lastNameError && "input__error") value=(userData && userData.lastName) maxlength="50" required)
+                    span.error-message= lastNameError
             .form-control
                 label(for="email") Email
                 input(id="email" name="email" type="email" class=(emailError && "input__error") value=(userData && userData.email) required)
@@ -30,4 +31,4 @@ block content
                 label(for="confirm_password") Confirm Password
                 input(id="confirm_password" name="confirm_password" class=(confirmPasswordError && "input__error") value=(userData && userData.confirmPassword) type="password" required)
                 span.error-message= confirmPasswordError
-            button.submit-btn(type="submit") Submit
+            button.btn.primary-btn(type="submit") Submit

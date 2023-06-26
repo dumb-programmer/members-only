@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    form(action="" method="POST")
+        h2 #{title}
+        p Are you sure you want to delete this post?
+        .btns-container
+            a(href="/" class="btn secondary-btn") Cancel
+            button(type="submit" class="btn danger-btn") Delete

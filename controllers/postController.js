@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const isAuthenticated = require("../middlewares/isAuthenticated");
+const isAdmin = require("../middlewares/isAdmin");
 const { body, validationResult } = require("express-validator");
 
 const getPosts = async (req, res) => {
@@ -34,6 +35,30 @@ const createPost = [
             res.render("post_form", { errors: result.array(), data: post })
         }
     }
+];
+
+const deleteConfirmation = [
+    isAuthenticated,
+    isAdmin,
+    (req, res) => {
+        res.render("delete_confirmation", { title: "Delete Post" });
+    }
 ]
 
-module.exports = { getPosts, createPostForm, createPost };
+const deletePost = [
+    isAuthenticated,
+    isAdmin,
+    async (req, res, next) => {
+        const { postId } = req.params;
+        try {
+            await Post.findOneAndDelete({ _id: postId });
+        }
+        catch (error) {
+            next(error);
+            return;
+        }
+        res.redirect("/");
+    }
+];
+
+module.exports = { getPosts, createPostForm, createPost, deleteConfirmation, deletePost };
