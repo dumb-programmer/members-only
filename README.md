@@ -1,6 +1,9 @@
 # members-only
   An express-based web application for an exclusive club-house that allows only members to see author name and timestamp of a post, while other users can only read the post and wonder who wrote them. Authorized users can become members by entering a passwod. Only admins can delete posts. The purpose of this project was to demonstrate my understanding of authentication and authorization using passport.js middleware.
 
+# Screenshot
+<img src="https://github.com/dumb-programmer/members-only/blob/main/screenshot.png" alt="project screenshot"/>
+
 # Libraries
 - <a href="https://expressjs.com/">expressjs</a>
 - <a href="http://www.passportjs.org/">passportjs</a>
