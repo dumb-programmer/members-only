@@ -32,7 +32,7 @@ const createPost = [
             res.redirect("/");
         }
         else {
-            res.render("post_form", { errors: result.array(), data: post })
+            res.render("post_form", { title: "Create Post", errors: result.array(), data: post })
         }
     }
 ];

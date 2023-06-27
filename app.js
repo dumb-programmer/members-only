@@ -47,11 +47,14 @@ const limiter = RateLimit({
 });
 app.use(limiter);
 app.use(compression());
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV === "production" && true }
+  cookie: { secure: process.env.NODE_ENV === "production" && true, maxAge: 30 * 24 * 60 * 60 * 1000 }
 }));
 passport.use(new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
   try {

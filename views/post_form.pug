@@ -7,7 +7,7 @@ block content
         h2 #{title}
         .form-control
             label(for="title") Title:
-            input(type="type" id="title" name="title" class=(titleError && "input__error") value=(data && data.title))
+            input(type="type" id="title" name="title" class=(titleError && "input__error") value=(data && data.title) required)
             span.error-message= titleError
         .form-control
             label(for="text") Text:
